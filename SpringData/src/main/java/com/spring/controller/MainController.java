@@ -2,10 +2,12 @@ package com.spring.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dao.CompanyRepository;
@@ -61,6 +63,18 @@ public class MainController {
 	@RequestMapping("/costumers/id/{id}")
 	public @ResponseBody List<Costumer> lista(@PathVariable(value="id") int id){
 		return costumerRepository.findByCompanyId(id);
+	}
+	@RequestMapping("/addCostumers/")
+	public @ResponseBody Iterable<Costumer> save(@RequestParam String firstName, @RequestParam String lastName,@RequestParam int companyId ){
+		Costumer costumer= new Costumer(firstName,lastName,companyId);
+		costumerRepository.save(costumer);
+		return costumerRepository.findAll();
+	}
+	@RequestMapping("/addCompany/")
+	public @ResponseBody Iterable<Company> saveCompany(@RequestParam String name, @RequestParam String email){
+		Company company= new Company(name,email);
+		companyRepository.save(company);
+		return companyRepository.findAll();
 	}
 	
 }

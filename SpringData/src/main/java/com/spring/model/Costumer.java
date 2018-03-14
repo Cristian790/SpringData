@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
@@ -13,6 +12,7 @@ import javax.persistence.ManyToOne;
 public class Costumer {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@Column(name="firstname")
 	private String firstName;
@@ -34,6 +34,15 @@ public class Costumer {
 		this.company = new Company(companyId);
 	}
 
+	public Costumer(String firstName, String lastName, int companyId) {
+		super();
+		
+		this.firstName = firstName;
+		this.lastName = lastName;
+		
+		this.company = new Company(companyId);
+	}
+	
 	public int getId() {
 		return id;
 	}
